@@ -2,10 +2,15 @@
   "name": "superdapp-crypto",
   "version": "2.0.0",
   "description": "A versatile cryptographic library designed for cross-platform compatibility, implementing the Web Cryptography API. It supports secure key generation, encryption, decryption, signing, and verification for modern web and server applications.",
-  "main": "./src/index.js",
+  "main": "./src/index.cjs",
   "module": "./src/index.js",
-  "type": "module",
-  "scripts": {
+  "exports": {
+    ".": {
+      "require": "./src/index.cjs",
+      "import": "./src/index.js"
+    }
+  },
+  "type": "module",  "scripts": {
     "lint": "eslint src/**/*.js",
     "test": "nyc ava --verbose --timeout=30s",
     "test:watch": "nyc ava --verbose --watch --timeout=30s",
@@ -22,7 +27,7 @@
     "verbose": true,
     "require": [
       "@babel/register",
-      "./src/test/helpers/_setup-browser-env.js"
+      "./src/test/helpers/_setup-node-env.js"
     ]
   },
   "nyc": {

@@ -1,3 +1,16 @@
+// ES module entry point for Node.js and browser environments
+
+import { Crypto } from '@peculiar/webcrypto'
+
+// Check if running in Node.js and assign a global crypto object
+if (
+  typeof globalThis !== 'undefined' &&
+  typeof window === 'undefined' &&
+  typeof globalThis.crypto === 'undefined'
+) {
+  globalThis.crypto = new Crypto()
+}
+
 export { isCryptoSupported } from './kryptos/kryptos.js'
 
 export {
