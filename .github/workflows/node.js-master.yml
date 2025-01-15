@@ -1,30 +1,46 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# CI Workflow for SuperDapp WebCrypto
+# This workflow installs dependencies, builds the source, and runs tests on multiple Node.js versions.
 
-name: Node.js CI
+name: CI - Node.js
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - main
+      - release/*
   pull_request:
-    branches: [ master ]
+    branches:
+      - '**'
 
 jobs:
-  build:
+  build-and-test:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x, 18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Build (If Applicable)
+        run: npm run build --if-present
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Upload Coverage (Optional)
+        if: success()
+        run: npm run coverage --if-present
