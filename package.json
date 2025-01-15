@@ -1,5 +1,5 @@
 {
-  "name": "fk-crypto-web",
+  "name": "superdapp-crypto",
   "version": "2.0.0",
   "description": "A versatile cryptographic library designed for cross-platform compatibility, implementing the Web Cryptography API. It supports secure key generation, encryption, decryption, signing, and verification for modern web and server applications.",
   "main": "./src/index.js",
@@ -35,7 +35,7 @@
   },
   "author": "SuperDapp",
   "license": "Apache License, Version 2.0 http://www.apache.org/licenses/LICENSE-2.0",
-  "homepage": "https://github.com/SuperDappAI/superdapp-webcrypto",
+  "homepage": "https://github.com/SuperDappAI/superdapp-crypto",
   "keywords": [
     "SuperDapp",
     "webcrypto",
@@ -55,7 +55,7 @@
     "babel-register": "^6.26.0",
     "browser-env": "^3.3.0",
     "c8": "^10.1.3",
-    "eslint": "^9.18.0",
+    "eslint": "^9.1.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-ava": "^15.0.1",
@@ -66,6 +66,8 @@
     "lint-staged": "^15.3.0",
     "nyc": "^17.1.0",
     "prettier": "^3.4.2",
+    "rimraf": "^4.4.0",
+    "uuid": "^9.0.0",
     "webcrypto-core": "^1.8.1"
   },
   "husky": {
