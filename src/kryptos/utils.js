@@ -1,3 +1,20 @@
+// Cross-environment implementation of atob and btoa
+const atob = (base64) => {
+  if (typeof window !== 'undefined' && window.atob) {
+    return window.atob(base64) // Use the browser's atob
+  } else {
+    return Buffer.from(base64, 'base64').toString('binary') // Use Node.js Buffer
+  }
+}
+
+const btoa = (binary) => {
+  if (typeof window !== 'undefined' && window.btoa) {
+    return window.btoa(binary) // Use the browser's btoa
+  } else {
+    return Buffer.from(binary, 'binary').toString('base64') // Use Node.js Buffer
+  }
+}
+
 import { kryptos } from './kryptos.js'
 import { EC } from './algorithms.js'
 import {
@@ -64,7 +81,7 @@ export function arrayBufferToHex(arrayBuffer) {
 }
 
 export function base64ToBinaryString(base64) {
-  return window.atob(base64)
+  return atob(base64)
 }
 
 export function base64ToArrayBuffer(base64, base64Url) {
@@ -78,7 +95,7 @@ export function base64ToArrayBuffer(base64, base64Url) {
   if (!base64String) {
     base64String = ''
   }
-  const binaryString = window.atob(base64String)
+  const binaryString = atob(base64String)
   const len = binaryString.length
   const bytes = new Uint8Array(len)
   for (let i = 0; i < len; i += 1) {
@@ -96,7 +113,7 @@ export function arrayBufferToBase64(buffer, base64Url) {
     (previous, current) => previous + String.fromCharCode(current),
     '',
   )
-  const output = window.btoa(data)
+  const output = btoa(data)
   if (base64Url) {
     return output.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
   }
