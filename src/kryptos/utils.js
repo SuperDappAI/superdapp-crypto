@@ -1,20 +1,3 @@
-// Cross-environment implementation of atob and btoa
-const atob = (base64) => {
-  if (typeof window !== 'undefined' && window.atob) {
-    return window.atob(base64) // Use the browser's atob
-  } else {
-    return Buffer.from(base64, 'base64').toString('binary') // Use Node.js Buffer
-  }
-}
-
-const btoa = (binary) => {
-  if (typeof window !== 'undefined' && window.btoa) {
-    return window.btoa(binary) // Use the browser's btoa
-  } else {
-    return Buffer.from(binary, 'binary').toString('base64') // Use Node.js Buffer
-  }
-}
-
 import { kryptos } from './kryptos.js'
 import { EC } from './algorithms.js'
 import {
@@ -24,6 +7,24 @@ import {
   PEM_PRIVATE_HEADER,
   PEM_PRIVATE_FOOTER,
 } from './constants.js'
+
+// Cross-environment implementation of atob and btoa
+const atob = (input) => {
+  if (typeof globalThis.atob === 'function') {
+    return globalThis.atob(input) // Browser's atob
+  } else {
+    return Buffer.from(input, 'base64').toString('binary') // Node.js Buffer
+  }
+}
+
+const btoa = (input) => {
+  if (typeof globalThis.btoa === 'function') {
+    return globalThis.btoa(input) // Browser's btoa
+  } else {
+    return Buffer.from(input, 'binary').toString('base64') // Node.js Buffer
+  }
+}
+
 /**
  * TODO consider TextEncoder.encode() Returns a Uint8Array containing utf-8 encoded text.
  * Converts a String to an ArrayBuffer.

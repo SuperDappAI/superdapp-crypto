@@ -10,7 +10,8 @@
       "import": "./src/index.js"
     }
   },
-  "type": "module",  "scripts": {
+  "type": "module",
+  "scripts": {
     "lint": "eslint src/**/*.js",
     "test": "nyc ava --verbose --timeout=30s",
     "test:watch": "nyc ava --verbose --watch --timeout=30s",
@@ -52,7 +53,6 @@
   "devDependencies": {
     "@babel/register": "^7.25.9",
     "@istanbuljs/nyc-config-babel": "^3.0.0",
-    "@peculiar/webcrypto": "^1.5.0",
     "ava": "^6.2.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^9.2.1",
@@ -72,8 +72,7 @@
     "nyc": "^17.1.0",
     "prettier": "^3.4.2",
     "rimraf": "^4.4.0",
-    "uuid": "^9.0.0",
-    "webcrypto-core": "^1.8.1"
+    "uuid": "^9.0.0"
   },
   "husky": {
     "hooks": {

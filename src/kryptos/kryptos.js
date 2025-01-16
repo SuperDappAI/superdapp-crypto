@@ -1,15 +1,13 @@
-// Import @peculiar/webcrypto for Node.js support
-import { Crypto } from '@peculiar/webcrypto'
+// Cross-environment Web Crypto API
+import { webcrypto } from 'crypto'
 
-// Define a cross-environment crypto object
 export const kryptos = (() => {
-  if (typeof globalThis.crypto !== 'undefined') {
-    return globalThis.crypto // Use global crypto if available (browser or Node.js)
+  if (typeof window !== 'undefined' && window.crypto) {
+    return window.crypto // Use browser's Web Crypto API
+  } else if (typeof webcrypto !== 'undefined') {
+    return webcrypto // Use Node.js native Web Crypto API
   } else {
-    // Initialize and return @peculiar/webcrypto for Node.js
-    const crypto = new Crypto()
-    globalThis.crypto = crypto // Assign to globalThis for consistency
-    return crypto
+    throw new Error('Web Crypto API is not supported in this environment.')
   }
 })()
 

@@ -1,11 +1,9 @@
 // CommonJS entry point for Node.js support
-
-// Import @peculiar/webcrypto for Node.js crypto compatibility
-const { Crypto } = require('@peculiar/webcrypto')
+const { webcrypto } = require('crypto')
 
 // Assign a global crypto object for Node.js
-if (typeof global !== 'undefined' && typeof global.crypto === 'undefined') {
-  global.crypto = new Crypto()
+if (typeof global.crypto === 'undefined') {
+  global.crypto = webcrypto
 }
 
 // Export the ES module entry point for CommonJS consumers
