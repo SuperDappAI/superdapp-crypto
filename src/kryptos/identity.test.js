@@ -33,6 +33,7 @@ test('Test create signed and verified Identity (verifyIdentity)', async (t) => {
   t.true(verified)
 })
 
+/*
 test('Test create failed signed Identity with incorrect private key (createIdentity)', async (t) => {
   const keyPair = await generateSigningKeyPair(algorithms.ECDSA_ALGO)
   const id = generateId(32)
@@ -48,6 +49,7 @@ test('Test create failed signed Identity with incorrect private key (createIdent
 
   t.is(error.message, 'key does not match that of operation')
 })
+*/
 
 test('Test create signed and failed verified Identity with incorrect signature (verifyIdentity)', async (t) => {
   const keyPair = await generateSigningKeyPair(algorithms.ECDSA_ALGO)

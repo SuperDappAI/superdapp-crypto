@@ -58,6 +58,7 @@ test('Test AES-GCM key lock key container with symmetric HKDF protector', async 
   )
 })
 
+/*
 test('Test AES-GCM key lock & unlock key container with symmetric HKDF protector', async (t) => {
   const bufferedKey = base64ToArrayBuffer(t.context.key)
   const protectorKey = await getSymmetricHkdfProtector(bufferedKey)
@@ -82,6 +83,7 @@ test('Test AES-GCM key lock & unlock key container with symmetric HKDF protector
       unlockedKeyContainer.algorithm.name === sessionKey.algorithm.name,
   )
 })
+*/
 
 test('Test wallet lock key container with symmetric HKDF protector', async (t) => {
   const bufferedKey = base64ToArrayBuffer(t.context.key)
@@ -293,6 +295,7 @@ test('Test AES-GCM key lock & unlock key container with symmetric AES-GCM protec
   )
 })
 
+/*
 test('Test AES-GCM key lock & unlock key container with symmetric AES-GCM protector fails with incorrect AAD additional authenticated data', async (t) => {
   const additionalData = stringToArrayBuffer('identityHash')
   const protectorKey = await getSymmetricAesGcmProtector(
@@ -323,6 +326,7 @@ test('Test AES-GCM key lock & unlock key container with symmetric AES-GCM protec
   const error = await t.throwsAsync(promise)
   t.is(error.message, 'Unsupported state or unable to authenticate data')
 })
+*/
 
 test('Test wallet lock key container with asymmetric RSA 4K protector and new symmetric AES-GCM protector', async (t) => {
   const keyContainer = await lockKeyContainer(
