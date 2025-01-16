@@ -86,6 +86,9 @@ export {
   importPublicKeyPem,
   importPrivateKeyPem,
   wrapKey,
+  generateEncryptionKeyPair,
+  generateSigningKeyPair,
+  generateSessionKey,
 } from './kryptos/keys.js'
 
 export { decryptRawSessionKey } from './kryptos/decrypter.js'
