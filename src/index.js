@@ -1,3 +1,11 @@
+// ES module entry point for Node.js and browser environments
+import { webcrypto } from 'crypto'
+
+// Check if running in Node.js and assign a global crypto object
+if (typeof globalThis.crypto === 'undefined') {
+  globalThis.crypto = webcrypto // Use Node.js native Web Crypto API
+}
+
 export { isCryptoSupported } from './kryptos/kryptos.js'
 
 export {
@@ -78,6 +86,9 @@ export {
   importPublicKeyPem,
   importPrivateKeyPem,
   wrapKey,
+  generateEncryptionKeyPair,
+  generateSigningKeyPair,
+  generateSessionKey,
 } from './kryptos/keys.js'
 
 export { decryptRawSessionKey } from './kryptos/decrypter.js'

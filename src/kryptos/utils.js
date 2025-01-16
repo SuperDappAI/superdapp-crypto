@@ -7,6 +7,24 @@ import {
   PEM_PRIVATE_HEADER,
   PEM_PRIVATE_FOOTER,
 } from './constants.js'
+
+// Cross-environment implementation of atob and btoa
+const atob = (input) => {
+  if (typeof globalThis.atob === 'function') {
+    return globalThis.atob(input) // Browser's atob
+  } else {
+    return Buffer.from(input, 'base64').toString('binary') // Node.js Buffer
+  }
+}
+
+const btoa = (input) => {
+  if (typeof globalThis.btoa === 'function') {
+    return globalThis.btoa(input) // Browser's btoa
+  } else {
+    return Buffer.from(input, 'binary').toString('base64') // Node.js Buffer
+  }
+}
+
 /**
  * TODO consider TextEncoder.encode() Returns a Uint8Array containing utf-8 encoded text.
  * Converts a String to an ArrayBuffer.
@@ -64,7 +82,7 @@ export function arrayBufferToHex(arrayBuffer) {
 }
 
 export function base64ToBinaryString(base64) {
-  return window.atob(base64)
+  return atob(base64)
 }
 
 export function base64ToArrayBuffer(base64, base64Url) {
@@ -78,7 +96,7 @@ export function base64ToArrayBuffer(base64, base64Url) {
   if (!base64String) {
     base64String = ''
   }
-  const binaryString = window.atob(base64String)
+  const binaryString = atob(base64String)
   const len = binaryString.length
   const bytes = new Uint8Array(len)
   for (let i = 0; i < len; i += 1) {
@@ -96,7 +114,7 @@ export function arrayBufferToBase64(buffer, base64Url) {
     (previous, current) => previous + String.fromCharCode(current),
     '',
   )
-  const output = window.btoa(data)
+  const output = btoa(data)
   if (base64Url) {
     return output.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '')
   }
